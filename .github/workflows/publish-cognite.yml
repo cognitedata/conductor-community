@@ -1,12 +1,5 @@
-name: Publish to Maven Central
-on:
-  workflow_dispatch:
-    inputs:
-      version: 
-        description: "workflow version"
-  pull_request:
-    branches:
-      - publish-maven-central-only
+name: Publish Cognite to Maven Central
+on: [ push, pull_request, workflow_dispatch ]
 
 jobs:
   publish:
