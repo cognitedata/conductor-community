@@ -4,6 +4,9 @@ on:
     inputs:
       version: 
         description: "workflow version"
+  pull_request:
+    branches:
+      - publish-maven-central-only
 
 jobs:
   publish:
