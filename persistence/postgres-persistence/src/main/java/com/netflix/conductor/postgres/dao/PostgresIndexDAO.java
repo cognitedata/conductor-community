@@ -12,7 +12,6 @@
 package com.netflix.conductor.postgres.dao;
 
 import java.sql.Timestamp;
-import java.time.Clock;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -201,9 +200,8 @@ public class PostgresIndexDAO extends PostgresBaseDAO implements IndexDAO {
     @Override
     public void removeWorkflow(String workflowId) {
         queryWithTransaction(
-            "DELETE FROM workflow_index WHERE workflow_id = ?",
-            q -> q.addParameter(workflowId).executeDelete()
-        );
+                "DELETE FROM workflow_index WHERE workflow_id = ?",
+                q -> q.addParameter(workflowId).executeDelete());
     }
 
     @Override
@@ -227,9 +225,8 @@ public class PostgresIndexDAO extends PostgresBaseDAO implements IndexDAO {
     @Override
     public void removeTask(String workflowId, String taskId) {
         queryWithTransaction(
-            "DELETE FROM task_index WHERE task_id = ?",
-            q -> q.addParameter(taskId).executeDelete()
-        );
+                "DELETE FROM task_index WHERE task_id = ?",
+                q -> q.addParameter(taskId).executeDelete());
     }
 
     @Override

@@ -408,7 +408,7 @@ public class PostgresIndexDAOTest {
         indexDAO.removeWorkflow(wfs.getWorkflowId());
         String query = String.format("workflowId=\"%s\"", wfs.getWorkflowId());
         SearchResult<WorkflowSummary> results =
-            indexDAO.searchWorkflowSummary(query, "*", 0, 15, new ArrayList());
+                indexDAO.searchWorkflowSummary(query, "*", 0, 15, new ArrayList());
         assertEquals("No workflow should be returned", 0, results.getResults().size());
     }
 
@@ -419,8 +419,7 @@ public class PostgresIndexDAOTest {
         indexDAO.removeTask("workflow-id", "task-id");
         String query = String.format("taskId=\"%s\"", ts.getTaskId());
         SearchResult<TaskSummary> results =
-            indexDAO.searchTaskSummary(query, "*", 0, 15, new ArrayList<>());
+                indexDAO.searchTaskSummary(query, "*", 0, 15, new ArrayList<>());
         assertEquals("No task should be returned", 0, results.getResults().size());
     }
-
 }
