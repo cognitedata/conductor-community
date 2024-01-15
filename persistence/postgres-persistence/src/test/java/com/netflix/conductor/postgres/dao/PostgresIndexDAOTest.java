@@ -400,4 +400,26 @@ public class PostgresIndexDAOTest {
         assertEquals(logs.get(1).getLog(), records.get(1).getLog());
         assertEquals(logs.get(1).getCreatedTime(), 1675845987000L);
     }
+
+    @Test
+    public void testRemoveWorkflow() {
+        WorkflowSummary wfs = getMockWorkflowSummary("workflow-id");
+        indexDAO.indexWorkflow(wfs);
+        indexDAO.removeWorkflow(wfs.getWorkflowId());
+        String query = String.format("workflowId=\"%s\"", wfs.getWorkflowId());
+        SearchResult<WorkflowSummary> results =
+                indexDAO.searchWorkflowSummary(query, "*", 0, 15, new ArrayList());
+        assertEquals("No workflow should be returned", 0, results.getResults().size());
+    }
+
+    @Test
+    public void testRemoveTask() {
+        TaskSummary ts = getMockTaskSummary("task-id");
+        indexDAO.indexTask(ts);
+        indexDAO.removeTask("workflow-id", "task-id");
+        String query = String.format("taskId=\"%s\"", ts.getTaskId());
+        SearchResult<TaskSummary> results =
+                indexDAO.searchTaskSummary(query, "*", 0, 15, new ArrayList<>());
+        assertEquals("No task should be returned", 0, results.getResults().size());
+    }
 }
