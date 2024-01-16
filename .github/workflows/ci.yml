@@ -67,7 +67,7 @@ jobs:
           name: build-scan
           path: 'buildscan.log'
       - name: Publish to Cognite JFrog
-        #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           ./gradlew :persistence:conductor-postgres-persistence:publish
         env:
