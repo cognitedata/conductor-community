@@ -50,14 +50,6 @@ jobs:
           NETFLIX_OSS_SIGNING_PASSWORD: ${{ secrets.ORG_SIGNING_PASSWORD }}
           NETFLIX_OSS_REPO_USERNAME: ${{ secrets.ORG_NETFLIXOSS_USERNAME }}
           NETFLIX_OSS_REPO_PASSWORD: ${{ secrets.ORG_NETFLIXOSS_PASSWORD }}
-      - name: Publish to Cognite JFrog
-        #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        run: |
-          ./gradlew :persistence:conductor-postgres-persistence:publish
-        env:
-          SONATYPE_OSSRH_USER: ${{ secrets.SONATYPE_OSSRH_USER }}
-          SONATYPE_OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-          COMMIT_SHA: ${{ github.sha }}
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
@@ -74,4 +66,12 @@ jobs:
         with:
           name: build-scan
           path: 'buildscan.log'
+      - name: Publish to Cognite JFrog
+        #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :persistence:conductor-postgres-persistence:publish
+        env:
+          SONATYPE_OSSRH_USER: ${{ secrets.SONATYPE_OSSRH_USER }}
+          SONATYPE_OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
+          COMMIT_SHA: ${{ github.sha }}
 
