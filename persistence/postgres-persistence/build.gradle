@@ -46,7 +46,7 @@ test {
 }
 
 group = 'com.cognite.conductor'
-version = '1.0'
+version = '1.0-' + System.getenv("COMMIT_SHA")
 
 publishing {
     publications {
