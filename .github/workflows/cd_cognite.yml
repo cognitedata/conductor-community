@@ -6,6 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Gradle wrapper validation
+        uses: gradle/wrapper-validation-action@v1
+      - name: Set up Zulu JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '17'
       - name: Build
         run: |
           echo "Running build for commit ${{ github.sha }}"
