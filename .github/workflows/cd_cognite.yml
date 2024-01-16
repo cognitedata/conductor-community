@@ -1,4 +1,4 @@
-name: CI
+name: CD
 
 on: [ push, pull_request, workflow_dispatch ]
 
@@ -9,7 +9,7 @@ jobs:
       - name: Build
         run: |
           echo "Running build for commit ${{ github.sha }}"
-          ./gradlew build --scan -x test
+          gradlew build --scan -x test
       - name: Publish
         #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
