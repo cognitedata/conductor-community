@@ -1,0 +1,19 @@
+name: CI
+
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          echo "Running build for commit ${{ github.sha }}"
+          ./gradlew build --scan -x test
+      - name: Publish
+        #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :persistence:conductor-postgres-persistence:publish
+        env:
+          SONATYPE_OSSRH_USER: ${{ secrets.SONATYPE_OSSRH_USER }}
+          SONATYPE_OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}

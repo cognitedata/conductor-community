@@ -1,3 +1,7 @@
+plugins {
+    id 'maven-publish'
+}
+
 dependencies {
 
     implementation project(':persistence:conductor-common-persistence')
@@ -39,4 +43,28 @@ dependencies {
 test {
     //the SQL unit tests must run within the same JVM to share the same embedded DB
     maxParallelForks = 1
+}
+
+group = 'com.cognite.conductor'
+version = '1.0'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name "cognite"
+            url "https://cognite.jfrog.io/cognite/libs-release-local"
+            credentials {
+                username = System.getenv("SONATYPE_OSSRH_USER")
+                password = System.getenv("SONATYPE_OSSRH_PASSWORD")
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }
