@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
       - name: Build with Gradle
-        if: github.ref != 'refs/heads/main'
+        #if: github.ref != 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -41,7 +41,8 @@ jobs:
           echo "Building against Conductor core version $CORE_CONDUCTOR_VERSION"
           ./gradlew build --scan -x test
       - name: Build and Publish snapshot
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        #if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: false
         run: |
           echo "Running build for commit ${{ github.sha }}"
           ./gradlew build snapshot --scan
