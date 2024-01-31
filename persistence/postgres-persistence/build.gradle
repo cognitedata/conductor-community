@@ -56,11 +56,12 @@ publishing {
     }
     repositories {
         maven {
+            def artifactRepoBase = 'https://cognite.jfrog.io/cognite/'
             name "cognite"
-            url "https://cognite.jfrog.io/cognite/libs-release-local"
+            url "${artifactRepoBase}${project.version.endsWith('-SNAPSHOT') ? 'libs-snapshot-local' : 'libs-release-local'}"
             credentials {
-                username = System.getenv("SONATYPE_OSSRH_USER")
-                password = System.getenv("SONATYPE_OSSRH_PASSWORD")
+                username = System.getenv("ARTIFACTORY_PUBLISH_TOKEN_USER")
+                password = System.getenv("ARTIFACTORY_PUBLISH_TOKEN")
             }
             authentication {
                 basic(BasicAuthentication)
