@@ -49,11 +49,6 @@ group = 'com.cognite.conductor'
 version = '1.0-' + System.getenv("COMMIT_SHA")
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
     repositories {
         maven {
             def artifactRepoBase = 'https://cognite.jfrog.io/cognite/'
