@@ -5,6 +5,7 @@ on: [ push, pull_request, workflow_dispatch ]
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'CD' || 'CI' }}
     steps:
       - uses: actions/checkout@v2
         with:
